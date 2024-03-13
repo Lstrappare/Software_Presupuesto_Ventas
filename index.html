@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" src="styles.css">
+    <title>Presupuesto de operación</title>
+</head>
+<body>
+    <h1>Presupuesto de operación</h1>
+    <fieldset> <!-- Formulario Presupuesto de ventas -->
+        <legend><h2>Presupuesto de ventas</h2></legend>
+        <label for="producto"> Producto </label>
+        <input name="producto" id="producto" type="text" placeholder="Producto">
+        <label for="unidades"> Unidades </label>
+        <input name="unidades" id="unidades" type="number" placeholder="Unidades">
+        <label for="precio"> Precio </label>
+        <input name="precio" id="precio" type="number" placeholder="Precio">
+        <h3>Total</h3>
+        <p id="totalPV"></p> <!-- Indica el total de presupuesto de ventas -->
+    </fieldset>
+    <fieldset>
+        <legend><h2>Presupuesto de producción</h2></legend> <!-- Formulario Presupuesto de producción -->
+        <p>Unidades a vender</p>
+        <p id="totalPVR"></p> <!-- Total Presupuesto de ventas registrado -->
+        <label for="inventarioI">Inventario Inicial</label>
+        <input type="number" name="inventarioI" id="inventarioI" placeholder="Inventario Inicial">
+        <label for="inventarioF">Inventario Final</label>
+        <input type="number" name="inventarioF" id="inventarioF" placeholder="Inventario Final">
+        <p>Unidades a producir</p>
+        <p id="Unidades a producir"></p> <!-- Indica Unidades a Producir -->
+    </fieldset>
+    <fieldset>
+        <legend><h2>Presupuesto de Materia Prima a Producir</h2></legend> <!-- Registro de Materia prima a producir -->
+        <p>Producto</p>
+        <p id="productoR"></p> <!-- Imprime el Producto registrado -->
+        <label for="numeroMP">Materias primas a necesitar</label> <!-- Numero de materias primas a necesitar -->
+        <input type="number" name="numeroMP" id="numeroMP" placeholder="Materias primas">
+        <p>Indica la cantidad de materias primas a necesitar:</p>
+        <!-- ToDo in script -->
+        <p>Unidades a necesitar</p>
+        <p id="unidadesN"></p> <!-- Resultado de Unidades a necesitar -->
+    </fieldset>
+    <fieldset>
+        <legend><h2>Presupuesto de Materia Prima</h2></legend> <!-- Registro de Presupuesto de Materia Prima -->
+        <p>Unidades a necesitar</p>
+        <p id="unidadesNR"></p> <!-- Imprime Unidades a necesitar registradas -->
+        <label for="inventarioIM">Inventario inicial de materias primas</label> <!-- ToDo -->
+        <label for="inventarioIM">Inventario final de materias primas</label> <!-- ToDo -->
+        <p>Unidades a comprar</p>
+        <p id="unidadesC"></p> <!-- Resultado de Unidades a Comprar -->
+        <label for="precioC"></label> <!-- Precio de compra -->
+        <p>Total de compra</p>
+        <p id="totalCompra"></p> <!-- Resultado de Presupuesto de materia prima -->
+    </fieldset>
+    <fieldset>
+        <legend><h2>Tarjeta de Almacen</h2></legend>
+        <p>Elige el método por el que quieres registrar tus entradas y salidas:</p>
+        <select name="tarjetaAlmacen" id="tarjetaAlmacen">
+            <option value="peps">PEPS</option>
+            <option value="ueps">UEPS</option>
+        </select>
+        <!-- ToDo in script metodo ueps y peps -->
+    </fieldset>
+    <fieldset>
+        <legend>Presupuesto de Mano de Obra</legend> <!-- Registro de Mano de Obra -->
+        <p>Unidades a producir</p>
+        <p id="unidadesP"></p>
+        <label for="horasArt">Horas Articulo</label>
+        <input type="number" name="horasArt" id="horasArt" placeholder="24hrs">
+        <p>Total de Horas</p>
+        <p id="totalHrs"></p> <!-- Total de horas de produccion -->
+        <label for="costoTotal">Costo Total</label> 
+        <input type="number" name="costoTotal" id="costoTotal" placeholder="Costo Total">
+        <p>Mano de Obra a pagar</p>
+        <p id="manoObraP"></p> <!-- Mano de obra a pagar -->
+    </fieldset>
+    <fieldset>
+        <legend><h2>Presupuesto de Cargos Indirectos</h2></legend>
+        <label for="materiaPI">Materia Prima Indirecta</label> <!-- Materia prima indirecta -->
+        <input type="number" name="materiaPI" id="materiaPI">
+        <label for="manoObraI">Mano de Obra Indirecta</label> <!-- Mano de obra indirecta -->
+        <input type="number" name="manoObraI" id="manoObraI">
+        <label for="renta">Renta</label> <!-- Renta -->
+        <input type="number" name="renta" id="renta">
+        <label for="energia">Energia</label> <!-- Energia -->
+        <input type="number" name="energia" id="energia">
+        <label for="mantenimiento">Mantenimiento</label> <!-- Mantenimiento -->
+        <input type="number" name="mantenimiento" id="mantenimiento">
+        <label for="varios">Varios</label> <!-- Varios -->
+        <p>Total</p>
+        <p id="totalCI"></p> <!-- Total Cargos Indirectos -->
+    </fieldset>
+    <fieldset>
+        <legend><h2>Presupuesto de producción</h2></legend> <!-- Registro de presupuesto de produccion -->
+        <p>Materia Prima</p>
+        <p id="materiaPT"></p> <!-- Total de materia prima -->
+        <p>Mano de Obra</p>
+        <p id="manoObraT"></p> <!-- Mano de obra total -->
+        <p>Cargos Indirectos</p>
+        <p id="cargosIndirectos"></p>
+        <p>Total de producción</p>
+        <p id="totalProduccion"></p>
+        <p>Unidades Producidas</p>  <!-- Resultado de unidades producidas -->
+        <p id="unidadesProducidas"></p>
+        <p>Costo unitario</p>
+        <p id="costoUnitario"></p> <!-- Resultado de costo unitario -->
+    </fieldset>
+    <fieldset>
+        <legend><h2>Presupuesto de Valuación de Articulos Terminados</h2></legend> <!-- Registro de Presupuesto de Valuacion de Art. Term. -->
+        <p>Inventario Inicial</p>
+        <p id="inventarioInicial"></p>
+        <p>Producidas</p>
+        <p id="producidas"></p> <!-- total de produccion -->
+        <p>Producción</p> <!-- Resultado Produccion disponible -->
+        <p id="produccionD"></p>
+        <p>Inventario Final</p>
+        <p id="inventarioFinal"></p>
+        <p>Costo de venta</p>
+        <p id="costoVenta"></p> <!-- Resultado de Costo de Venta -->
+        <label for="costoUII">Costo unitario</label>
+        <input type="number" name="costoUII" id="costoUII"> <!-- Costo unitario de inventario inicial -->
+        <p>Costo unitario de unidades producidas</p>
+        <p id="costoUP"></p> <!-- Costo de unidades producidas -->
+        <p>Total Inventario Inicial</p>
+        <p id="totalII"></p> <!-- Total Inventario Inicial -->
+        <p>Total Unidades Producidas</p>
+        <p id="totalUP"></p> <!-- Total unidades producidas -->
+        <p>Total Costo de Venta</p>
+        <p id="totalCV"></p> <!-- Total Costo de Venta -->
+    </fieldset>
+    <fieldset>
+        <legend> Estados de Resultados Proyectados</legend>
+        <p>Ventas</p>
+        <p id="costoDeVentas"></p> <!-- Total de costo de ventas -->
+        <p>Utilidad Bruta</p>
+        <p id="utilidadBruta"></p> <!-- Resultado de utilidad bruta -->
+        <p>Gastos de operación</p>
+        <p id="gastosOperacion"></p>
+        <p>Utilidad de Operación</p>
+        <p id="utilidadOperacion"></p> <!-- Resultado de utilidad de operacion -->
+    </fieldset>
+    <fieldset>
+        <label for="comisiones">Comisiones</label>
+        <input type="number" name="comisiones" id="comisiones">
+        <label for="sueldos">Sueldos</label>
+        <input type="number" name="sueldos" id="sueldos">
+        <label for="publicidad">Publicidad</label>
+        <input type="number" name="publicidad" id="publicidad">
+        <label for="servicios">Servicios</label>
+        <input type="number" name="servicios" id="servicios">
+        <label for="diversos">Diversos</label>
+        <input type="number" name="diversos" id="diversos">
+        <p>Total Gastos de Operación</p>
+        <p id="totalGastosOperecion"></p>
+    </fieldset>
+    <a href="#">Da click para continuar</a>
+    <script src="script.js"></script>
+</body>
+</html>
