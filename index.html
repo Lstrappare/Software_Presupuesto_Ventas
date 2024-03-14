@@ -16,37 +16,47 @@
         <input name="unidades" id="unidades" type="number" placeholder="Unidades">
         <label for="precio"> Precio </label>
         <input name="precio" id="precio" type="number" placeholder="Precio">
-        <h3>Total</h3>
-        <p id="totalPV"></p> <!-- Indica el total de presupuesto de ventas -->
+        <h3 id="totalPV">Total</h3>
+        <!-- Indica el total de presupuesto de ventas -->
+        <input type="submit" value="calcular" onclick="calcularPresupuestoVentas()">
     </fieldset>
     <fieldset>
         <legend><h2>Presupuesto de producción</h2></legend> <!-- Formulario Presupuesto de producción -->
-        <p>Unidades a vender</p>
-        <p id="totalPVR"></p> <!-- Total Presupuesto de ventas registrado -->
+        <p id="totalPVR">Unidades a Vender</p>
+        <!-- Total Presupuesto de ventas registrado -->
         <label for="inventarioI">Inventario Inicial</label>
         <input type="number" name="inventarioI" id="inventarioI" placeholder="Inventario Inicial">
         <label for="inventarioF">Inventario Final</label>
         <input type="number" name="inventarioF" id="inventarioF" placeholder="Inventario Final">
-        <p>Unidades a producir</p>
-        <p id="Unidades a producir"></p> <!-- Indica Unidades a Producir -->
+        <p id="UnidadesProducir">Unidades a producir</p>
+        <!-- Indica Unidades a Producir -->
+        <input type="submit" value="calcular" onclick="calcularPresupuestoProduccion()">
     </fieldset>
     <fieldset>
         <legend><h2>Presupuesto de Materia Prima a Producir</h2></legend> <!-- Registro de Materia prima a producir -->
-        <p>Producto</p>
-        <p id="productoR"></p> <!-- Imprime el Producto registrado -->
-        <label for="numeroMP">Materias primas a necesitar</label> <!-- Numero de materias primas a necesitar -->
-        <input type="number" name="numeroMP" id="numeroMP" placeholder="Materias primas">
+        <p id="productoR">Producto</p>
+        <!-- Imprime el Producto registrado -->
         <p>Indica la cantidad de materias primas a necesitar:</p>
-        <!-- ToDo in script -->
-        <p>Unidades a necesitar</p>
-        <p id="unidadesN"></p> <!-- Resultado de Unidades a necesitar -->
+        <label for="a">A</label>
+        <input type="number" id="a" name="a" >
+        <label for="b">B</label>
+        <input type="number" id="b" name="b" >
+        <label for="c">C</label>
+        <input type="number" id="c" name="c" >
+        <!-- Resultado de Unidades a necesitar -->
+        <p id="ResultadoUnidadesNecesariasA">Unidades Necesarias: </p>
+        <p id="ResultadoUnidadesNecesariasB"></p>
+        <p id="ResultadoUnidadesNecesariasC"></p>
+        <input type="submit" onclick="presupuestoMPNecesaria()">
     </fieldset>
     <fieldset>
         <legend><h2>Presupuesto de Materia Prima</h2></legend> <!-- Registro de Presupuesto de Materia Prima -->
         <p>Unidades a necesitar</p>
         <p id="unidadesNR"></p> <!-- Imprime Unidades a necesitar registradas -->
-        <label for="inventarioIM">Inventario inicial de materias primas</label> <!-- ToDo -->
-        <label for="inventarioIM">Inventario final de materias primas</label> <!-- ToDo -->
+        <label for="inventarioIMA">Inventario inicial de materia prima A</label>
+        <input type="number" id="inventarioIM" name="inventarioIM">
+        <label for="inventarioFMA">Inventario final de materia prima A</label> <!-- ToDo -->
+        <input type="number" name="inventarioFMA" id="inventarioFMA">
         <p>Unidades a comprar</p>
         <p id="unidadesC"></p> <!-- Resultado de Unidades a Comprar -->
         <label for="precioC"></label> <!-- Precio de compra -->
