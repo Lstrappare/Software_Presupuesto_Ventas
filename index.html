@@ -52,25 +52,55 @@
     <fieldset>
         <legend><h2>Presupuesto de Materia Prima</h2></legend> <!-- Registro de Presupuesto de Materia Prima -->
         <p>Unidades a necesitar</p>
-        <p id="unidadesNR"></p> <!-- Imprime Unidades a necesitar registradas -->
-        <label for="inventarioIMA">Inventario inicial de materia prima A</label>
-        <input type="number" id="inventarioIM" name="inventarioIM">
-        <label for="inventarioFMA">Inventario final de materia prima A</label> <!-- ToDo -->
-        <input type="number" name="inventarioFMA" id="inventarioFMA">
-        <p>Unidades a comprar</p>
-        <p id="unidadesC"></p> <!-- Resultado de Unidades a Comprar -->
-        <label for="precioC"></label> <!-- Precio de compra -->
-        <p>Total de compra</p>
-        <p id="totalCompra"></p> <!-- Resultado de Presupuesto de materia prima -->
+        <div id="unidadesNR"></div> <!-- Imprime Unidades a necesitar registradas -->
+        <!--Inventarios A -->
+        <label for="inventarioIMPA">Inventario inicial de materia prima A</label>
+        <input type="number" id="inventarioIMPA" name="inventarioIMPA">
+        <label for="inventarioFMPA">Inventario final de materia prima A</label>
+        <input type="number" name="inventarioFMPA" id="inventarioFMPA">
+        <!-- Precio de compra A -->
+        <label for="pCompraMPA"> Precio de Compra Materia Prima A </label>
+        <input type="number" name="pCompraMPA" id="pCompraMPA">
+        <!-- Inventarios B -->
+        <label for="inventarioIMPB">Inventario inicial de materia prima B</label>
+        <input type="number" id="inventarioIMPB" name="inventarioIMPB">
+        <label for="inventarioFMPB">Inventario final de materia prima B</label> 
+        <input type="number" name="inventarioFMPB" id="inventarioFMPB">
+        <!-- Precio de compra B -->
+        <label for="pCompraMPB"> Precio de Compra Materia Prima B </label>
+        <input type="number" name="pCompraMPB" id="pCompraMPB">
+        <!-- Inventarios C -->
+        <label for="inventarioIMPC">Inventario inicial de materia prima C</label>
+        <input type="number" id="inventarioIMPC" name="inventarioIMPC">
+        <label for="inventarioFMPC">Inventario final de materia prima C</label> 
+        <input type="number" name="inventarioFMPC" id="inventarioFMPC">
+        <!-- Precio de compra B -->
+        <label for="pCompraMPC"> Precio de Compra Materia Prima C</label>
+        <input type="number" name="pCompraMPC" id="pCompraMPC">
+        <!-- Resultado de Presupuesto de materia prima -->
+        <div id="unidadesAComprar">Unidades a Comprar:</div>
+        <div id="totalCompra">Total de compra:</div>
+        <input type="submit" value="Continuar" onclick="presupuestoMP()">
     </fieldset>
     <fieldset>
         <legend><h2>Tarjeta de Almacen</h2></legend>
+        <h3>Ingresa los Precios de tu Inventario Inicial de MP:</h3>
+        <label for="costoIIMPA">Materia A</label>
+        <input type="number" name="costoIIMPA" id="costoIIMPA">
+        <label for="costoIIMPB">Materia B</label>
+        <input type="number" name="costoIIMPB" id="costoIIMPB">
+        <label for="costoIIMPC">Materia C</label>
+        <input type="number" name="costoIIMPC" id="costoIIMPC">
         <p>Elige el método por el que quieres registrar tus entradas y salidas:</p>
-        <select name="tarjetaAlmacen" id="tarjetaAlmacen">
+        <!-- Opciones de Tarjeta de Almacen -->
+        <select name="tarjetaAlmacen" id="metodoValuacion">
             <option value="peps">PEPS</option>
             <option value="ueps">UEPS</option>
+            <option value="costoPromedio">Costo Promedio</option>
         </select>
-        <!-- ToDo in script metodo ueps y peps -->
+        <!-- Mostrar los Resultados  -->
+        <div id="mostrarTarjeta"></div>
+        <input type="submit" value="continuar" onclick="tarjetaAlmacen()">
     </fieldset>
     <fieldset>
         <legend>Presupuesto de Mano de Obra</legend> <!-- Registro de Mano de Obra -->
