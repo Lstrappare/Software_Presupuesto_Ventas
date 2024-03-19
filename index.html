@@ -28,7 +28,9 @@
         <input type="number" name="inventarioI" id="inventarioI" placeholder="Inventario Inicial">
         <label for="inventarioF">Inventario Final</label>
         <input type="number" name="inventarioF" id="inventarioF" placeholder="Inventario Final">
-        <p id="UnidadesProducir">Unidades a producir</p>
+        <label for="precioII">Precio Inventario Inicial</label>
+        <input type="number" name="precioII" id="precioII" placeholder="Precio">
+        <h4 id="UnidadesProducir">Unidades a producir: </h4>
         <!-- Indica Unidades a Producir -->
         <input type="submit" value="calcular" onclick="calcularPresupuestoProduccion()">
     </fieldset>
@@ -51,7 +53,7 @@
     </fieldset>
     <fieldset>
         <legend><h2>Presupuesto de Materia Prima</h2></legend> <!-- Registro de Presupuesto de Materia Prima -->
-        <p>Unidades a necesitar</p>
+        <h4>Unidades a necesitar: </h4>
         <div id="unidadesNR"></div> <!-- Imprime Unidades a necesitar registradas -->
         <!--Inventarios A -->
         <label for="inventarioIMPA">Inventario inicial de materia prima A</label>
@@ -78,8 +80,8 @@
         <label for="pCompraMPC"> Precio de Compra Materia Prima C</label>
         <input type="number" name="pCompraMPC" id="pCompraMPC">
         <!-- Resultado de Presupuesto de materia prima -->
-        <div id="unidadesAComprar">Unidades a Comprar:</div>
-        <div id="totalCompra">Total de compra:</div>
+        <h4 id="unidadesAComprar">Unidades a Comprar:</h4>
+        <h4 id="totalCompra">Total de compra:</h4>
         <input type="submit" value="Continuar" onclick="presupuestoMP()">
     </fieldset>
     <fieldset>
@@ -93,27 +95,28 @@
         <input type="number" name="costoIIMPC" id="costoIIMPC">
         <p>Elige el método por el que quieres registrar tus entradas y salidas:</p>
         <!-- Opciones de Tarjeta de Almacen -->
+        
         <select name="tarjetaAlmacen" id="metodoValuacion">
             <option value="peps">PEPS</option>
             <option value="ueps">UEPS</option>
             <option value="costoPromedio">Costo Promedio</option>
         </select>
+        <input type="submit" value="continuar" onclick="tarjetaAlmacen()">
         <!-- Mostrar los Resultados  -->
         <div id="mostrarTarjeta"></div>
-        <input type="submit" value="continuar" onclick="tarjetaAlmacen()">
     </fieldset>
     <fieldset>
-        <legend>Presupuesto de Mano de Obra</legend> <!-- Registro de Mano de Obra -->
-        <p>Unidades a producir</p>
-        <p id="unidadesP"></p>
+        <legend><h2>Presupuesto de Mano de Obra</h2></legend> <!-- Registro de Mano de Obra -->
+        <p id="unidadesP">Unidades a producir: </p>
         <label for="horasArt">Horas Articulo</label>
         <input type="number" name="horasArt" id="horasArt" placeholder="24hrs">
-        <p>Total de Horas</p>
-        <p id="totalHrs"></p> <!-- Total de horas de produccion -->
+        <h4 id="totalHrs">Total de Horas: </h4>
+        <!-- Total de horas de produccion -->
         <label for="costoTotal">Costo Total</label> 
         <input type="number" name="costoTotal" id="costoTotal" placeholder="Costo Total">
-        <p>Mano de Obra a pagar</p>
-        <p id="manoObraP"></p> <!-- Mano de obra a pagar -->
+        <h4 id="manoObraP">Mano de Obra a pagar: </h4>
+        <!-- Mano de obra a pagar -->
+        <input type="submit" value="Continuar" onclick="presupuestoMO()">
     </fieldset>
     <fieldset>
         <legend><h2>Presupuesto de Cargos Indirectos</h2></legend>
@@ -128,59 +131,72 @@
         <label for="mantenimiento">Mantenimiento</label> <!-- Mantenimiento -->
         <input type="number" name="mantenimiento" id="mantenimiento">
         <label for="varios">Varios</label> <!-- Varios -->
-        <p>Total</p>
-        <p id="totalCI"></p> <!-- Total Cargos Indirectos -->
+        <input type="number" name="mantenimiento" id="varios">
+        <h4 id="totalCI">Total: </h4>
+        <!-- Total Cargos Indirectos -->
+        <input type="submit" value="Continuar" onclick="presupuestoCargosIndirectos()">
     </fieldset>
     <fieldset>
         <legend><h2>Presupuesto de producción</h2></legend> <!-- Registro de presupuesto de produccion -->
-        <p>Materia Prima</p>
-        <p id="materiaPT"></p> <!-- Total de materia prima -->
-        <p>Mano de Obra</p>
-        <p id="manoObraT"></p> <!-- Mano de obra total -->
-        <p>Cargos Indirectos</p>
-        <p id="cargosIndirectos"></p>
-        <p>Total de producción</p>
-        <p id="totalProduccion"></p>
-        <p>Unidades Producidas</p>  <!-- Resultado de unidades producidas -->
-        <p id="unidadesProducidas"></p>
-        <p>Costo unitario</p>
-        <p id="costoUnitario"></p> <!-- Resultado de costo unitario -->
+        <p id="materiaPT">Materia Prima: </p>
+        <!-- Total de materia prima -->
+        <p id="manoObraT">Mano de Obra: </p>
+        <!-- Mano de obra total -->
+        <p id="cargosIndirectos">Cargos Indirectos: </p>
+        <h4 id="totalProduccion">Total de producción: </h4>
+        <p id="unidadesProducidas">Unidades Producidas: </p>  <!-- Resultado de unidades producidas -->
+        <h4 id="costoUnitario">Costo unitario: </h4>
+        <!-- Resultado de costo unitario -->
+        <input type="submit" value="Continuar" onclick="presupuestoProduccion()">
     </fieldset>
     <fieldset>
         <legend><h2>Presupuesto de Valuación de Articulos Terminados</h2></legend> <!-- Registro de Presupuesto de Valuacion de Art. Term. -->
-        <p>Inventario Inicial</p>
-        <p id="inventarioInicial"></p>
-        <p>Producidas</p>
-        <p id="producidas"></p> <!-- total de produccion -->
-        <p>Producción</p> <!-- Resultado Produccion disponible -->
-        <p id="produccionD"></p>
-        <p>Inventario Final</p>
-        <p id="inventarioFinal"></p>
-        <p>Costo de venta</p>
-        <p id="costoVenta"></p> <!-- Resultado de Costo de Venta -->
-        <label for="costoUII">Costo unitario</label>
-        <input type="number" name="costoUII" id="costoUII"> <!-- Costo unitario de inventario inicial -->
-        <p>Costo unitario de unidades producidas</p>
-        <p id="costoUP"></p> <!-- Costo de unidades producidas -->
-        <p>Total Inventario Inicial</p>
-        <p id="totalII"></p> <!-- Total Inventario Inicial -->
-        <p>Total Unidades Producidas</p>
-        <p id="totalUP"></p> <!-- Total unidades producidas -->
-        <p>Total Costo de Venta</p>
-        <p id="totalCV"></p> <!-- Total Costo de Venta -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th>Unidades</th>
+                    <th>Costo Unitario</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Inventario Inicial</td>
+                    <td id="inventarioInicial">X</td>
+                    <td id="precioIITab">X</td>
+                    <td id="totalII">X</td>
+                </tr>
+                <tr>
+                    <td>Unidades Producidas</td>
+                    <td id="unidadesProducidasTab">X</td>
+                    <td id="precioUP">X</td>
+                    <td id="totalUP">X</td>
+                </tr>
+                <tr>
+                    <td>Producción disponible</td>
+                    <td id="unidadesDisp">X</td>
+                    <td></td>
+                    <td id="totalDisp">X</td>
+                </tr>
+                <tr>
+                    <td>Inventario Final</td>
+                    <td id="inventarioFinal">X</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Costo de Venta</td>
+                    <td id="costoUnidades">X</td>
+                    <td id="precioUP2">X</td>
+                    <td id="totalCostoVenta">X</td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="submit" value="Continuar" onclick="presupuestoArticulosTerminados()">
     </fieldset>
     <fieldset>
-        <legend> Estados de Resultados Proyectados</legend>
-        <p>Ventas</p>
-        <p id="costoDeVentas"></p> <!-- Total de costo de ventas -->
-        <p>Utilidad Bruta</p>
-        <p id="utilidadBruta"></p> <!-- Resultado de utilidad bruta -->
-        <p>Gastos de operación</p>
-        <p id="gastosOperacion"></p>
-        <p>Utilidad de Operación</p>
-        <p id="utilidadOperacion"></p> <!-- Resultado de utilidad de operacion -->
-    </fieldset>
-    <fieldset>
+        <legend><h2>Presupuesto de gastos Operacion</h2></legend>
         <label for="comisiones">Comisiones</label>
         <input type="number" name="comisiones" id="comisiones">
         <label for="sueldos">Sueldos</label>
@@ -191,8 +207,22 @@
         <input type="number" name="servicios" id="servicios">
         <label for="diversos">Diversos</label>
         <input type="number" name="diversos" id="diversos">
-        <p>Total Gastos de Operación</p>
-        <p id="totalGastosOperecion"></p>
+        <h4 id="totalGastosOperecion">Total Gastos de Operación: </h4>
+        <input type="submit" value="Continuar" onclick="presupuestosGastosOperacion()">
+    </fieldset>
+    <fieldset>
+        <legend><h2>Estados de Resultados Proyectados</h2></legend>
+        <p id="ventasRP">Ventas: </p>
+        <!-- Ventas -->
+        <p id="costoDeVentas">Costo de Ventas: </p>
+        <!-- Total de costo de ventas -->
+        <h4 id="utilidadBruta">Utilidad Bruta: </h4>
+        <!-- Resultado de utilidad bruta -->
+        <p id="gastosOperacion">Gastos de Operación: </p>
+        <!-- Gastos de Operacion -->
+        <h4 id="utilidadOperacion">Utilidad de Operación: </h4>
+        <!-- Resultado de utilidad de operacion -->
+        <input type="submit" value="Continuar" onclick="estadoResultadoProyectado()">
     </fieldset>
     <a href="#">Da click para continuar</a>
     <script src="script.js"></script>
