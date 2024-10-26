@@ -45,6 +45,7 @@ var totalCostoVenta;
 // Total Gastos de Operacion
 var totalGastosOperacion
 
+document.querySelector('body').classList.toggle('dark-mode');
 
 function calcularPresupuestoVentas(){
     nombreProducto = document.getElementById('producto').value;
