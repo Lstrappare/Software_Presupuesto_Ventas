@@ -8,6 +8,15 @@
     <link rel="icon" type="image/png" sizes="192x192" href="Icono.png">
 <link rel="apple-touch-icon" href="Icono.png">
 <link rel="manifest" href="manifest.json">
+<script>
+        if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(() => console.log('Service Worker registrado'))
+        .catch((error) => console.log('Error registrando Service Worker:', error));
+    }
+</script>
+<script src="main.js"></script>
+<script src="sw.js"></script>
 </head>
 <body>
     <header>
@@ -234,11 +243,5 @@
         
     <script src="script.js"></script>
 </body>
-<script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js')
-        .then(() => console.log('Service Worker registrado'))
-        .catch((error) => console.log('Error registrando Service Worker:', error));
-    }
-  </script>
+
 </html>
