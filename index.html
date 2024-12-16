@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="styles.css">
-    <title>Presupuesto de operación</title>
-    <link rel="icon" type="image/png" sizes="192x192" href="Icono.png">
-<link rel="apple-touch-icon" href="Icono.png">
-<link rel="manifest" href="manifest.json">
-<script>
-        if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js')
-        .then(() => console.log('Service Worker registrado'))
-        .catch((error) => console.log('Error registrando Service Worker:', error));
-    }
-</script>
-<script src="main.js"></script>
-<script src="sw.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="theme-color" content="#000000"> <!-- Color de la barra de estado -->
+        
+        <link rel="stylesheet" href="styles.css">
+        <title>Presupuesto de operación</title>
+        
+        <!-- Íconos -->
+        <link rel="icon" type="image/png" sizes="192x192" href="Icono.png">
+        <link rel="apple-touch-icon" href="Icono.png">
+    
+        <!-- Manifiesto de la PWA -->
+        <link rel="manifest" href="manifest.json">
+        
+        <!-- Registro del Service Worker -->
+        <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(() => console.log('Service Worker registrado'))
+                    .catch((error) => console.log('Error registrando Service Worker:', error));
+            }
+        </script>
 </head>
 <body>
     <header>
