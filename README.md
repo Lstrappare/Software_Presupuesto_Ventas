@@ -1,6 +1,7 @@
 # 📊 Software de Presupuesto de Operación
 
 Sistema integral para cálculos contables y presupuestarios que permite a las empresas planificar y controlar sus operaciones financieras de manera eficiente.
+<img width="1920" height="1440" alt="602_1x_shots_so" src="https://github.com/user-attachments/assets/9efcd71a-bb81-44e5-ad56-e8cfa6807df6" />
 
 ## ✨ Características Principales
 
