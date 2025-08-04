@@ -1,253 +1,462 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <meta name="theme-color" content="#000000"> <!-- Color de la barra de estado -->
-        
-        <link rel="stylesheet" href="styles.css">
-        <title>Presupuesto de operación</title>
-        
-        <!-- Íconos -->
-        <link rel="icon" type="image/png" sizes="192x192" href="Icono.png">
-        <link rel="apple-touch-icon" href="Icono.png">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#006479">
+    <meta name="description" content="Sistema de presupuesto de operación para cálculos contables y financieros">
     
-        <!-- Manifiesto de la PWA -->
-        <link rel="manifest" href="manifest.json">
-        
-        <!-- Registro del Service Worker -->
-        <script>
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(() => console.log('Service Worker registrado'))
-                    .catch((error) => console.log('Error registrando Service Worker:', error));
-            }
-        </script>
+    <title>Software de Presupuesto de Operación</title>
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Íconos -->
+    <link rel="icon" type="image/png" sizes="192x192" href="Icono.png">
+    <link rel="apple-touch-icon" href="Icono.png">
+
+    <!-- Manifiesto de la PWA -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Registro del Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .then(() => console.log('Service Worker registrado'))
+                .catch((error) => console.log('Error registrando Service Worker:', error));
+        }
+    </script>
 </head>
 <body>
     <header>
-        <h1>Presupuesto de operación</h1>
+        <h1>Presupuesto de Operación</h1>
+        <p class="subtitle">Sistema integral para cálculos contables y presupuestarios</p>
     </header>
+
     <main>
-        <fieldset> <!-- Formulario Presupuesto de ventas -->
-            <legend><h2>Presupuesto de ventas</h2></legend>
-            <label for="producto"> Producto </label>
-            <input name="producto" id="producto" type="text" placeholder="Producto">
-            <label for="unidades"> Unidades </label>
-            <input name="unidades" id="unidades" type="number" placeholder="Unidades">
-            <label for="precio"> Precio </label>
-            <input name="precio" id="precio" type="number" placeholder="Precio">
-            <h3 id="totalPV">Total</h3>
-            <!-- Indica el total de presupuesto de ventas -->
-            <input type="submit" value="calcular" onclick="calcularPresupuestoVentas()">
-        </fieldset>
-        <fieldset>
-            <legend><h2>Presupuesto de producción</h2></legend> <!-- Formulario Presupuesto de producción -->
-            <p id="totalPVR">Unidades a Vender</p>
-            <!-- Total Presupuesto de ventas registrado -->
-            <label for="inventarioI">Inventario Inicial</label>
-            <input type="number" name="inventarioI" id="inventarioI" placeholder="Inventario Inicial">
-            <label for="inventarioF">Inventario Final</label>
-            <input type="number" name="inventarioF" id="inventarioF" placeholder="Inventario Final">
-            <label for="precioII">Precio Inventario Inicial</label>
-            <input type="number" name="precioII" id="precioII" placeholder="Precio">
-            <h4 id="UnidadesProducir">Unidades a producir: </h4>
-            <!-- Indica Unidades a Producir -->
-            <input type="submit" value="calcular" onclick="calcularPresupuestoProduccion()">
-        </fieldset>
-        <fieldset>
-            <legend><h2>Presupuesto de Materia Prima a Producir</h2></legend> <!-- Registro de Materia prima a producir -->
-            <p id="productoR">Producto</p>
-            <!-- Imprime el Producto registrado -->
-            <p>Indica la cantidad de materias primas a necesitar:</p>
-            <label for="a">A</label>
-            <input type="number" id="a" name="a" >
-            <label for="b">B</label>
-            <input type="number" id="b" name="b" >
-            <label for="c">C</label>
-            <input type="number" id="c" name="c" >
-            <!-- Resultado de Unidades a necesitar -->
-            <p id="ResultadoUnidadesNecesariasA">Unidades Necesarias: </p>
-            <p id="ResultadoUnidadesNecesariasB"></p>
-            <p id="ResultadoUnidadesNecesariasC"></p>
-            <input type="submit" onclick="presupuestoMPNecesaria()">
-        </fieldset>
-        <fieldset>
-            <legend><h2>Presupuesto de Materia Prima</h2></legend> <!-- Registro de Presupuesto de Materia Prima -->
-            <h4>Unidades a necesitar: </h4>
-            <div id="unidadesNR"></div> <!-- Imprime Unidades a necesitar registradas -->
-            <!--Inventarios A -->
-            <label for="inventarioIMPA">Inventario inicial de materia prima A</label>
-            <input type="number" id="inventarioIMPA" name="inventarioIMPA">
-            <label for="inventarioFMPA">Inventario final de materia prima A</label>
-            <input type="number" name="inventarioFMPA" id="inventarioFMPA">
-            <!-- Precio de compra A -->
-            <label for="pCompraMPA"> Precio de Compra Materia Prima A </label>
-            <input type="number" name="pCompraMPA" id="pCompraMPA">
-            <!-- Inventarios B -->
-            <label for="inventarioIMPB">Inventario inicial de materia prima B</label>
-            <input type="number" id="inventarioIMPB" name="inventarioIMPB">
-            <label for="inventarioFMPB">Inventario final de materia prima B</label> 
-            <input type="number" name="inventarioFMPB" id="inventarioFMPB">
-            <!-- Precio de compra B -->
-            <label for="pCompraMPB"> Precio de Compra Materia Prima B </label>
-            <input type="number" name="pCompraMPB" id="pCompraMPB">
-            <!-- Inventarios C -->
-            <label for="inventarioIMPC">Inventario inicial de materia prima C</label>
-            <input type="number" id="inventarioIMPC" name="inventarioIMPC">
-            <label for="inventarioFMPC">Inventario final de materia prima C</label> 
-            <input type="number" name="inventarioFMPC" id="inventarioFMPC">
-            <!-- Precio de compra B -->
-            <label for="pCompraMPC"> Precio de Compra Materia Prima C</label>
-            <input type="number" name="pCompraMPC" id="pCompraMPC">
-            <!-- Resultado de Presupuesto de materia prima -->
-            <h4 id="unidadesAComprar">Unidades a Comprar:</h4>
-            <h4 id="totalCompra">Total de compra:</h4>
-            <input type="submit" value="Continuar" onclick="presupuestoMP()">
-        </fieldset>
-        <fieldset>
-            <legend><h2>Tarjeta de Almacen</h2></legend>
-            <h3>Ingresa los Precios de tu Inventario Inicial de MP:</h3>
-            <label for="costoIIMPA">Materia A</label>
-            <input type="number" name="costoIIMPA" id="costoIIMPA">
-            <label for="costoIIMPB">Materia B</label>
-            <input type="number" name="costoIIMPB" id="costoIIMPB">
-            <label for="costoIIMPC">Materia C</label>
-            <input type="number" name="costoIIMPC" id="costoIIMPC">
-            <p>Elige el método por el que quieres registrar tus entradas y salidas:</p>
-            <!-- Opciones de Tarjeta de Almacen -->
+        <!-- Presupuesto de Ventas -->
+        <fieldset class="fade-in">
+            <legend><h2>📊 Presupuesto de Ventas</h2></legend>
             
-            <select name="tarjetaAlmacen" id="metodoValuacion">
-                <option value="peps">PEPS</option>
-                <option value="ueps">UEPS</option>
-                <option value="costoPromedio">Costo Promedio</option>
-            </select>
-            <input type="submit" value="continuar" onclick="tarjetaAlmacen()">
-            <!-- Mostrar los Resultados  -->
-            <div id="mostrarTarjeta"></div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="producto">Producto</label>
+                    <input name="producto" id="producto" type="text" placeholder="Nombre del producto" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="unidades">Unidades</label>
+                    <input name="unidades" id="unidades" type="number" placeholder="Cantidad de unidades" min="0" step="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="precio">Precio unitario</label>
+                    <input name="precio" id="precio" type="number" placeholder="Precio por unidad" min="0" step="0.01" required>
+                </div>
+            </div>
+            
+            <div class="result-display">
+                <h3 id="totalPV">Total: Ingrese los datos para calcular</h3>
+            </div>
+            
+            <input type="submit" value="Calcular Presupuesto de Ventas" onclick="calcularPresupuestoVentas()">
         </fieldset>
-        <fieldset>
-            <legend><h2>Presupuesto de Mano de Obra</h2></legend> <!-- Registro de Mano de Obra -->
-            <p id="unidadesP">Unidades a producir: </p>
-            <label for="horasArt">Horas Articulo</label>
-            <input type="number" name="horasArt" id="horasArt" placeholder="24hrs">
-            <h4 id="totalHrs">Total de Horas: </h4>
-            <!-- Total de horas de produccion -->
-            <label for="costoTotal">Costo Total</label> 
-            <input type="number" name="costoTotal" id="costoTotal" placeholder="Costo Total">
-            <h4 id="manoObraP">Mano de Obra a pagar: </h4>
-            <!-- Mano de obra a pagar -->
-            <input type="submit" value="Continuar" onclick="presupuestoMO()">
+        <!-- Presupuesto de Producción -->
+        <fieldset class="fade-in">
+            <legend><h2>🏭 Presupuesto de Producción</h2></legend>
+            
+            <div class="result-display">
+                <p id="totalPVR">Unidades a Vender: Complete el presupuesto de ventas primero</p>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="inventarioI">Inventario Inicial</label>
+                    <input type="number" name="inventarioI" id="inventarioI" placeholder="Inventario inicial" min="0" step="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="inventarioF">Inventario Final</label>
+                    <input type="number" name="inventarioF" id="inventarioF" placeholder="Inventario final deseado" min="0" step="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="precioII">Precio Inventario Inicial</label>
+                    <input type="number" name="precioII" id="precioII" placeholder="Precio por unidad" min="0" step="0.01">
+                </div>
+            </div>
+            
+            <div class="result-display">
+                <h4 id="UnidadesProducir">Unidades a producir: Complete los datos</h4>
+            </div>
+            
+            <input type="submit" value="Calcular Presupuesto de Producción" onclick="calcularPresupuestoProduccion()">
         </fieldset>
-        <fieldset>
-            <legend><h2>Presupuesto de Cargos Indirectos</h2></legend>
-            <label for="materiaPI">Materia Prima Indirecta</label> <!-- Materia prima indirecta -->
-            <input type="number" name="materiaPI" id="materiaPI">
-            <label for="manoObraI">Mano de Obra Indirecta</label> <!-- Mano de obra indirecta -->
-            <input type="number" name="manoObraI" id="manoObraI">
-            <label for="renta">Renta</label> <!-- Renta -->
-            <input type="number" name="renta" id="renta">
-            <label for="energia">Energia</label> <!-- Energia -->
-            <input type="number" name="energia" id="energia">
-            <label for="mantenimiento">Mantenimiento</label> <!-- Mantenimiento -->
-            <input type="number" name="mantenimiento" id="mantenimiento">
-            <label for="varios">Varios</label> <!-- Varios -->
-            <input type="number" name="mantenimiento" id="varios">
-            <h4 id="totalCI">Total: </h4>
-            <!-- Total Cargos Indirectos -->
-            <input type="submit" value="Continuar" onclick="presupuestoCargosIndirectos()">
+
+        <!-- Presupuesto de Materia Prima Necesaria -->
+        <fieldset class="fade-in">
+            <legend><h2>🧱 Presupuesto de Materia Prima Necesaria</h2></legend>
+            
+            <div class="result-display">
+                <p id="productoR">Producto: Complete el presupuesto de ventas primero</p>
+            </div>
+            
+            <p class="text-secondary">Indique la cantidad de materias primas necesarias por unidad de producto:</p>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="a">Materia Prima A (unidades)</label>
+                    <input type="number" id="a" name="a" placeholder="Cantidad por unidad" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="b">Materia Prima B (unidades)</label>
+                    <input type="number" id="b" name="b" placeholder="Cantidad por unidad" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="c">Materia Prima C (unidades)</label>
+                    <input type="number" id="c" name="c" placeholder="Cantidad por unidad" min="0" step="0.01">
+                </div>
+            </div>
+            
+            <div class="result-display">
+                <p id="ResultadoUnidadesNecesariasA">Unidades Necesarias A: Complete los datos</p>
+                <p id="ResultadoUnidadesNecesariasB">Unidades Necesarias B: Complete los datos</p>
+                <p id="ResultadoUnidadesNecesariasC">Unidades Necesarias C: Complete los datos</p>
+            </div>
+            
+            <input type="submit" value="Calcular Materia Prima Necesaria" onclick="presupuestoMPNecesaria()">
         </fieldset>
-        <fieldset>
-            <legend><h2>Presupuesto de producción</h2></legend> <!-- Registro de presupuesto de produccion -->
-            <p id="materiaPT">Materia Prima: </p>
-            <!-- Total de materia prima -->
-            <p id="manoObraT">Mano de Obra: </p>
-            <!-- Mano de obra total -->
-            <p id="cargosIndirectos">Cargos Indirectos: </p>
-            <h4 id="totalProduccion">Total de producción: </h4>
-            <p id="unidadesProducidas">Unidades Producidas: </p>  <!-- Resultado de unidades producidas -->
-            <h4 id="costoUnitario">Costo unitario: </h4>
-            <!-- Resultado de costo unitario -->
-            <input type="submit" value="Continuar" onclick="presupuestoProduccion()">
+        <!-- Presupuesto de Materia Prima -->
+        <fieldset class="fade-in">
+            <legend><h2>📦 Presupuesto de Materia Prima</h2></legend>
+            
+            <div class="result-display">
+                <h4>Unidades necesarias:</h4>
+                <div id="unidadesNR">Complete el presupuesto anterior</div>
+            </div>
+            
+            <h4 class="text-primary">Inventarios de Materia Prima A</h4>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="inventarioIMPA">Inventario inicial MP A</label>
+                    <input type="number" id="inventarioIMPA" name="inventarioIMPA" placeholder="Unidades iniciales" min="0" step="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="inventarioFMPA">Inventario final MP A</label>
+                    <input type="number" name="inventarioFMPA" id="inventarioFMPA" placeholder="Unidades finales" min="0" step="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="pCompraMPA">Precio de Compra MP A</label>
+                    <input type="number" name="pCompraMPA" id="pCompraMPA" placeholder="Precio por unidad" min="0" step="0.01">
+                </div>
+            </div>
+            
+            <h4 class="text-primary">Inventarios de Materia Prima B</h4>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="inventarioIMPB">Inventario inicial MP B</label>
+                    <input type="number" id="inventarioIMPB" name="inventarioIMPB" placeholder="Unidades iniciales" min="0" step="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="inventarioFMPB">Inventario final MP B</label> 
+                    <input type="number" name="inventarioFMPB" id="inventarioFMPB" placeholder="Unidades finales" min="0" step="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="pCompraMPB">Precio de Compra MP B</label>
+                    <input type="number" name="pCompraMPB" id="pCompraMPB" placeholder="Precio por unidad" min="0" step="0.01">
+                </div>
+            </div>
+            
+            <h4 class="text-primary">Inventarios de Materia Prima C</h4>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="inventarioIMPC">Inventario inicial MP C</label>
+                    <input type="number" id="inventarioIMPC" name="inventarioIMPC" placeholder="Unidades iniciales" min="0" step="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="inventarioFMPC">Inventario final MP C</label> 
+                    <input type="number" name="inventarioFMPC" id="inventarioFMPC" placeholder="Unidades finales" min="0" step="1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="pCompraMPC">Precio de Compra MP C</label>
+                    <input type="number" name="pCompraMPC" id="pCompraMPC" placeholder="Precio por unidad" min="0" step="0.01">
+                </div>
+            </div>
+            
+            <div class="result-display">
+                <h4 id="unidadesAComprar">Unidades a Comprar: Complete los datos</h4>
+                <h4 id="totalCompra">Total de compra: Complete los datos</h4>
+            </div>
+            
+            <input type="submit" value="Calcular Presupuesto de Materia Prima" onclick="presupuestoMP()">
         </fieldset>
-        <fieldset>
-            <legend><h2>Presupuesto de Valuación de Articulos Terminados</h2></legend> <!-- Registro de Presupuesto de Valuacion de Art. Term. -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>Concepto</th>
-                        <th>Unidades</th>
-                        <th>Costo Unitario</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Inventario Inicial</td>
-                        <td id="inventarioInicial">X</td>
-                        <td id="precioIITab">X</td>
-                        <td id="totalII">X</td>
-                    </tr>
-                    <tr>
-                        <td>Unidades Producidas</td>
-                        <td id="unidadesProducidasTab">X</td>
-                        <td id="precioUP">X</td>
-                        <td id="totalUP">X</td>
-                    </tr>
-                    <tr>
-                        <td>Producción disponible</td>
-                        <td id="unidadesDisp">X</td>
-                        <td></td>
-                        <td id="totalDisp">X</td>
-                    </tr>
-                    <tr>
-                        <td>Inventario Final</td>
-                        <td id="inventarioFinal">X</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Costo de Venta</td>
-                        <td id="costoUnidades">X</td>
-                        <td id="precioUP2">X</td>
-                        <td id="totalCostoVenta">X</td>
-                    </tr>
-                </tbody>
-            </table>
-            <input type="submit" value="Continuar" onclick="presupuestoArticulosTerminados()">
+        <!-- Tarjeta de Almacén -->
+        <fieldset class="fade-in">
+            <legend><h2>📋 Tarjeta de Almacén</h2></legend>
+            
+            <h3 class="text-primary">Costos de Inventario Inicial de Materia Prima</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="costoIIMPA">Costo Unitario MP A</label>
+                    <input type="number" name="costoIIMPA" id="costoIIMPA" placeholder="Costo por unidad" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="costoIIMPB">Costo Unitario MP B</label>
+                    <input type="number" name="costoIIMPB" id="costoIIMPB" placeholder="Costo por unidad" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="costoIIMPC">Costo Unitario MP C</label>
+                    <input type="number" name="costoIIMPC" id="costoIIMPC" placeholder="Costo por unidad" min="0" step="0.01">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="metodoValuacion">Método de Valuación de Inventarios</label>
+                <select name="tarjetaAlmacen" id="metodoValuacion">
+                    <option value="">Seleccione un método</option>
+                    <option value="peps">PEPS (Primeras Entradas, Primeras Salidas)</option>
+                    <option value="ueps">UEPS (Últimas Entradas, Primeras Salidas)</option>
+                    <option value="costoPromedio">Costo Promedio Ponderado</option>
+                </select>
+            </div>
+            
+            <input type="submit" value="Generar Tarjeta de Almacén" onclick="tarjetaAlmacen()">
+            
+            <div class="table-container">
+                <div id="mostrarTarjeta"></div>
+            </div>
         </fieldset>
-        <fieldset>
-            <legend><h2>Presupuesto de gastos Operacion</h2></legend>
-            <label for="comisiones">Comisiones</label>
-            <input type="number" name="comisiones" id="comisiones">
-            <label for="sueldos">Sueldos</label>
-            <input type="number" name="sueldos" id="sueldos">
-            <label for="publicidad">Publicidad</label>
-            <input type="number" name="publicidad" id="publicidad">
-            <label for="servicios">Servicios</label>
-            <input type="number" name="servicios" id="servicios">
-            <label for="diversos">Diversos</label>
-            <input type="number" name="diversos" id="diversos">
-            <h4 id="totalGastosOperecion">Total Gastos de Operación: </h4>
-            <input type="submit" value="Continuar" onclick="presupuestosGastosOperacion()">
+
+        <!-- Presupuesto de Mano de Obra -->
+        <fieldset class="fade-in">
+            <legend><h2>👷 Presupuesto de Mano de Obra</h2></legend>
+            
+            <div class="result-display">
+                <p id="unidadesP">Unidades a producir: Complete el presupuesto de producción</p>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="horasArt">Horas por Artículo</label>
+                    <input type="number" name="horasArt" id="horasArt" placeholder="Ej: 24 horas" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="costoTotal">Costo por Hora</label> 
+                    <input type="number" name="costoTotal" id="costoTotal" placeholder="Costo por hora trabajada" min="0" step="0.01">
+                </div>
+            </div>
+            
+            <div class="result-display">
+                <h4 id="totalHrs">Total de Horas: Complete los datos</h4>
+                <h4 id="manoObraP">Mano de Obra a pagar: Complete los datos</h4>
+            </div>
+            
+            <input type="submit" value="Calcular Mano de Obra" onclick="presupuestoMO()">
         </fieldset>
-        <fieldset>
-            <legend><h2>Estados de Resultados Proyectados</h2></legend>
-            <p id="ventasRP">Ventas: </p>
-            <!-- Ventas -->
-            <p id="costoDeVentas">Costo de Ventas: </p>
-            <!-- Total de costo de ventas -->
-            <h4 id="utilidadBruta">Utilidad Bruta: </h4>
-            <!-- Resultado de utilidad bruta -->
-            <p id="gastosOperacion">Gastos de Operación: </p>
-            <!-- Gastos de Operacion -->
-            <h4 id="utilidadOperacion">Utilidad de Operación: </h4>
-            <!-- Resultado de utilidad de operacion -->
-            <input type="submit" value="Continuar" onclick="estadoResultadoProyectado()">
+        <!-- Presupuesto de Cargos Indirectos -->
+        <fieldset class="fade-in">
+            <legend><h2>⚙️ Presupuesto de Cargos Indirectos</h2></legend>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="materiaPI">Materia Prima Indirecta</label>
+                    <input type="number" name="materiaPI" id="materiaPI" placeholder="Costo de MP indirecta" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="manoObraI">Mano de Obra Indirecta</label>
+                    <input type="number" name="manoObraI" id="manoObraI" placeholder="Costo de MO indirecta" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="renta">Renta</label>
+                    <input type="number" name="renta" id="renta" placeholder="Costo de renta" min="0" step="0.01">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="energia">Energía</label>
+                    <input type="number" name="energia" id="energia" placeholder="Costo de energía" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="mantenimiento">Mantenimiento</label>
+                    <input type="number" name="mantenimiento" id="mantenimiento" placeholder="Costo de mantenimiento" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="varios">Gastos Varios</label>
+                    <input type="number" name="varios" id="varios" placeholder="Otros gastos indirectos" min="0" step="0.01">
+                </div>
+            </div>
+            
+            <div class="result-display">
+                <h4 id="totalCI">Total: Complete los datos</h4>
+            </div>
+            
+            <input type="submit" value="Calcular Cargos Indirectos" onclick="presupuestoCargosIndirectos()">
+        </fieldset>
+
+        <!-- Presupuesto de Producción (Consolidado) -->
+        <fieldset class="fade-in">
+            <legend><h2>🏭 Presupuesto de Producción (Consolidado)</h2></legend>
+            
+            <div class="result-display">
+                <p id="materiaPT">Materia Prima: Complete los presupuestos anteriores</p>
+                <p id="manoObraT">Mano de Obra: Complete los presupuestos anteriores</p>
+                <p id="cargosIndirectos">Cargos Indirectos: Complete los presupuestos anteriores</p>
+                <h4 id="totalProduccion">Total de producción: Complete los datos</h4>
+                <p id="unidadesProducidas">Unidades Producidas: Complete los datos</p>
+                <h4 id="costoUnitario">Costo unitario: Complete los datos</h4>
+            </div>
+            
+            <input type="submit" value="Calcular Presupuesto de Producción" onclick="presupuestoProduccion()">
+        </fieldset>
+        <!-- Presupuesto de Valuación de Artículos Terminados -->
+        <fieldset class="fade-in">
+            <legend><h2>📊 Presupuesto de Valuación de Artículos Terminados</h2></legend>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Concepto</th>
+                            <th>Unidades</th>
+                            <th>Costo Unitario</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Inventario Inicial</td>
+                            <td id="inventarioInicial" class="text-center">—</td>
+                            <td id="precioIITab" class="text-center">—</td>
+                            <td id="totalII" class="text-center font-bold">—</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Unidades Producidas</td>
+                            <td id="unidadesProducidasTab" class="text-center">—</td>
+                            <td id="precioUP" class="text-center">—</td>
+                            <td id="totalUP" class="text-center font-bold">—</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-primary">Producción disponible</td>
+                            <td id="unidadesDisp" class="text-center font-bold">—</td>
+                            <td class="text-center">—</td>
+                            <td id="totalDisp" class="text-center font-bold text-primary">—</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Inventario Final</td>
+                            <td id="inventarioFinal" class="text-center">—</td>
+                            <td class="text-center">—</td>
+                            <td class="text-center">—</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-primary">Costo de Venta</td>
+                            <td id="costoUnidades" class="text-center font-bold">—</td>
+                            <td id="precioUP2" class="text-center">—</td>
+                            <td id="totalCostoVenta" class="text-center font-bold text-primary">—</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <input type="submit" value="Calcular Valuación de Artículos" onclick="presupuestoArticulosTerminados()">
+        </fieldset>
+
+        <!-- Presupuesto de Gastos de Operación -->
+        <fieldset class="fade-in">
+            <legend><h2>💼 Presupuesto de Gastos de Operación</h2></legend>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="comisiones">Comisiones</label>
+                    <input type="number" name="comisiones" id="comisiones" placeholder="Comisiones de ventas" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="sueldos">Sueldos</label>
+                    <input type="number" name="sueldos" id="sueldos" placeholder="Sueldos administrativos" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="publicidad">Publicidad</label>
+                    <input type="number" name="publicidad" id="publicidad" placeholder="Gastos de publicidad" min="0" step="0.01">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="servicios">Servicios</label>
+                    <input type="number" name="servicios" id="servicios" placeholder="Servicios generales" min="0" step="0.01">
+                </div>
+                
+                <div class="form-group">
+                    <label for="diversos">Gastos Diversos</label>
+                    <input type="number" name="diversos" id="diversos" placeholder="Otros gastos operativos" min="0" step="0.01">
+                </div>
+            </div>
+            
+            <div class="result-display">
+                <h4 id="totalGastosOperecion">Total Gastos de Operación: Complete los datos</h4>
+            </div>
+            
+            <input type="submit" value="Calcular Gastos de Operación" onclick="presupuestosGastosOperacion()">
+        </fieldset>
+        <!-- Estados de Resultados Proyectados -->
+        <fieldset class="fade-in">
+            <legend><h2>📈 Estados de Resultados Proyectados</h2></legend>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Concepto</th>
+                            <th>Importe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Ventas</td>
+                            <td id="ventasRP" class="text-right font-bold">Complete los presupuestos anteriores</td>
+                        </tr>
+                        <tr>
+                            <td>(-) Costo de Ventas</td>
+                            <td id="costoDeVentas" class="text-right">Complete los presupuestos anteriores</td>
+                        </tr>
+                        <tr style="border-top: 2px solid var(--color-primary);">
+                            <td class="font-bold text-primary">= Utilidad Bruta</td>
+                            <td id="utilidadBruta" class="text-right font-bold text-primary">Complete los datos</td>
+                        </tr>
+                        <tr>
+                            <td>(-) Gastos de Operación</td>
+                            <td id="gastosOperacion" class="text-right">Complete los presupuestos anteriores</td>
+                        </tr>
+                        <tr style="border-top: 2px solid var(--color-secondary);">
+                            <td class="font-bold text-secondary">= Utilidad de Operación</td>
+                            <td id="utilidadOperacion" class="text-right font-bold text-secondary">Complete los datos</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <input type="submit" value="Generar Estado de Resultados" onclick="estadoResultadoProyectado()">
         </fieldset>
     </main>
         
     <script src="script.js"></script>
+    <script src="mejoras.js"></script>
 </body>
-
 </html>

@@ -1,4 +1,5 @@
-// Informacion Producto
+// Variables globales para almacenar datos del presupuesto
+// Información del Producto
 var unidadesProducto;
 var nombreProducto;
 var precioProducto;
@@ -42,52 +43,113 @@ var totalCargosIndirectos;
 var costoUnitario;
 // Total Costo de venta
 var totalCostoVenta;
-// Total Gastos de Operacion
-var totalGastosOperacion
+// Total Gastos de Operación
+var totalGastosOperacion;
 
-document.querySelector('body').classList.toggle('dark-mode');
+// Función para formatear números como moneda
+function formatearMoneda(numero) {
+    return new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN'
+    }).format(numero);
+}
+
+// Función para formatear números simples
+function formatearNumero(numero) {
+    return new Intl.NumberFormat('es-MX').format(numero);
+}
+
+// Función para añadir animación a elementos
+function animarElemento(elementId) {
+    const elemento = document.getElementById(elementId);
+    if (elemento) {
+        elemento.classList.add('fade-in');
+    }
+}
+
+// Función para validar que los campos requeridos estén llenos
+function validarCampos(campos) {
+    for (let campo of campos) {
+        const elemento = document.getElementById(campo);
+        if (!elemento || !elemento.value || elemento.value === '') {
+            alert(`Por favor, complete el campo: ${elemento.labels?.[0]?.textContent || campo}`);
+            elemento.focus();
+            return false;
+        }
+    }
+    return true;
+}
+
+// Remover la línea problemática del modo oscuro
+// document.querySelector('body').classList.toggle('dark-mode');
 
 function calcularPresupuestoVentas(){
-    nombreProducto = document.getElementById('producto').value;
+    // Validar campos requeridos
+    if (!validarCampos(['producto', 'unidades', 'precio'])) {
+        return;
+    }
+
+    nombreProducto = document.getElementById('producto').value.trim();
     unidadesProducto = parseFloat(document.getElementById('unidades').value);
     precioProducto = parseFloat(document.getElementById('precio').value);
+    
+    // Validar que los números sean positivos
+    if (unidadesProducto <= 0 || precioProducto <= 0) {
+        alert('Las unidades y el precio deben ser números positivos');
+        return;
+    }
+    
     totalPresupuestoVentas = precioProducto * unidadesProducto;
 
-    document.getElementById('totalPV').textContent = 'Total ' + totalPresupuestoVentas;
-
-    document.getElementById('totalPVR').textContent = 'Unidades a Vender ' + unidadesProducto;
-
-    document.getElementById('productoR').textContent = 'Producto ' + nombreProducto;
-
-    document.getElementById('ventasRP').innerHTML = `
-    <p> Ventas: ${totalPresupuestoVentas}</p>
-    `;
+    document.getElementById('totalPV').textContent = `Total: ${formatearMoneda(totalPresupuestoVentas)}`;
+    document.getElementById('totalPVR').textContent = `Unidades a Vender: ${formatearNumero(unidadesProducto)} unidades`;
+    document.getElementById('productoR').textContent = `Producto: ${nombreProducto}`;
+    document.getElementById('ventasRP').innerHTML = `<strong>${formatearMoneda(totalPresupuestoVentas)}</strong>`;
+    
+    // Animar elementos actualizados
+    animarElemento('totalPV');
+    animarElemento('totalPVR');
 };
 
 function calcularPresupuestoProduccion(){
+    // Validar que se haya calculado el presupuesto de ventas primero
+    if (!unidadesProducto) {
+        alert('Primero debe calcular el presupuesto de ventas');
+        return;
+    }
+    
+    // Validar campos requeridos
+    if (!validarCampos(['inventarioI', 'inventarioF', 'precioII'])) {
+        return;
+    }
+
     inventarioInicial = parseFloat(document.getElementById('inventarioI').value);
     inventarioFinal = parseFloat(document.getElementById('inventarioF').value);
     precioII = parseFloat(document.getElementById('precioII').value);
+    
+    // Validar que los números no sean negativos
+    if (inventarioInicial < 0 || inventarioFinal < 0 || precioII < 0) {
+        alert('Los valores de inventario y precios no pueden ser negativos');
+        return;
+    }
+    
     totalPresupuestoProduccion = unidadesProducto - inventarioInicial + inventarioFinal;
-    document.getElementById('UnidadesProducir').textContent = 'Unidades a producir: ' + totalPresupuestoProduccion;
-    document.getElementById('unidadesP').innerHTML = `
-    <h4>Unidades a producir: ${totalPresupuestoProduccion}</h4>
-    `;
-    document.getElementById('unidadesProducidas').innerHTML = `
-    <p>Unidades Producidas: ${totalPresupuestoProduccion}</p>
-    `;
-    document.getElementById('inventarioInicial').innerHTML = `
-    <td>${inventarioInicial}</td>
-    `;
-    document.getElementById('precioIITab').innerHTML = `
-    <td>${precioII}</td>
-    `;
-    document.getElementById('unidadesProducidasTab').innerHTML = `
-    <td>${totalPresupuestoProduccion}</td>
-    `;
-    document.getElementById('inventarioFinal').innerHTML = `
-    <td>${inventarioFinal}</td>
-    `;
+    
+    if (totalPresupuestoProduccion < 0) {
+        alert('Las unidades a producir no pueden ser negativas. Revise los datos ingresados.');
+        return;
+    }
+
+    document.getElementById('UnidadesProducir').textContent = `Unidades a producir: ${formatearNumero(totalPresupuestoProduccion)} unidades`;
+    document.getElementById('unidadesP').innerHTML = `<strong>Unidades a producir: ${formatearNumero(totalPresupuestoProduccion)} unidades</strong>`;
+    document.getElementById('unidadesProducidas').innerHTML = `<strong>Unidades Producidas: ${formatearNumero(totalPresupuestoProduccion)} unidades</strong>`;
+    document.getElementById('inventarioInicial').innerHTML = formatearNumero(inventarioInicial);
+    document.getElementById('precioIITab').innerHTML = formatearMoneda(precioII);
+    document.getElementById('unidadesProducidasTab').innerHTML = formatearNumero(totalPresupuestoProduccion);
+    document.getElementById('inventarioFinal').innerHTML = formatearNumero(inventarioFinal);
+    
+    // Animar elementos actualizados
+    animarElemento('UnidadesProducir');
 };
 
 function presupuestoMPNecesaria(){
