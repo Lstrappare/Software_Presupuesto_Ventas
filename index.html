@@ -1,23 +1,43 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Metadatos base -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#006479">
-    <meta name="description" content="Sistema de presupuesto de operación para cálculos contables y financieros">
-    
-    <title>Software de Presupuesto de Operación</title>
-    
+    <meta name="description" content="Software en línea para crear presupuestos de operación, facilitar cálculos contables. Ideal para empresas y estudiantes.">
+    <meta name="keywords" content="presupuesto de operación, contabilidad, finanzas, software contable, calculadora financiera, administración empresarial, herramienta contable">
+    <meta name="author" content="Jose Manuel Cisneros Valero">
+
+    <title>Software de Presupuesto de Operación | Cálculos contables y financieros</title>
+
+    <!-- Open Graph (para compartir en redes como Facebook, LinkedIn, etc.) -->
+    <meta property="og:title" content="Software de Presupuesto de Operación">
+    <meta property="og:description" content="Genera presupuestos contables y financieros de forma automática. Ideal para estudiantes y empresas.">
+    <meta property="og:image" content="https://lstrappare.github.io/Software_Presupuesto_Ventas/portrait.png">
+    <meta property="og:url" content="https://lstrappare.github.io/Software_Presupuesto_Ventas/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Software de Presupuesto de Operación">
+    <meta name="twitter:description" content="Crea presupuestos contables y financieros en segundos. Simple, rápido y gratuito.">
+    <meta name="twitter:image" content="https://lstrappare.github.io/Software_Presupuesto_Ventas/portrait.png">
+
     <!-- Estilos -->
     <link rel="stylesheet" href="styles.css">
-    
+
     <!-- Íconos -->
-    <link rel="icon" type="image/png" sizes="192x192" href="Icono.png">
-    <link rel="apple-touch-icon" href="Icono.png">
+    <link rel="icon" type="image/svg+xml" sizes="192x192" href="icono.svg">
+    <link rel="apple-touch-icon" href="icono.svg">
 
     <!-- Manifiesto de la PWA -->
     <link rel="manifest" href="manifest.json">
-    
+
+    <!-- Biblioteca para generar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
     <!-- Registro del Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
@@ -455,7 +475,10 @@
             <input type="submit" value="Generar Estado de Resultados" onclick="estadoResultadoProyectado()">
         </fieldset>
     </main>
-        
+    <footer class="fade-in">
+        <p>© 2025 Presupuesto de Operación. Licencia MIT.</p>
+        <p>Desarrollado por <a href="https://www.josecisneros.me" target="_blank" rel="noopener noreferrer">José Cisneros</a></p>
+    </footer>
     <script src="script.js"></script>
     <script src="mejoras.js"></script>
 </body>

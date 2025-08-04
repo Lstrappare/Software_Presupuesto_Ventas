@@ -564,3 +564,302 @@ fieldset:hover {
         transform: none;
     }
 }
+
+/* Estilos para notificaciones */
+.notificacion {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: 10000;
+    min-width: 300px;
+    max-width: 500px;
+    animation: slideIn 0.3s ease-out;
+    backdrop-filter: blur(10px);
+}
+
+.notificacion-success {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.95), rgba(6, 214, 160, 0.95));
+    color: white;
+    border-left: 4px solid var(--color-success);
+}
+
+.notificacion-error {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.95), rgba(220, 38, 38, 0.95));
+    color: white;
+    border-left: 4px solid var(--color-error);
+}
+
+.notificacion-warning {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.95), rgba(217, 119, 6, 0.95));
+    color: white;
+    border-left: 4px solid var(--color-warning);
+}
+
+.notificacion-icono {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.notificacion-mensaje {
+    flex: 1;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.notificacion-cerrar {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.notificacion-cerrar:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Estilos para botones de acción mejorados */
+.btn-accion {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn-accion::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-accion:hover::before {
+    left: 100%;
+}
+
+.btn-peligro {
+    background: linear-gradient(135deg, var(--color-error), #dc2626) !important;
+}
+
+.btn-peligro:hover {
+    background: linear-gradient(135deg, #dc2626, var(--color-error)) !important;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+}
+
+/* Botón especial para PDF */
+[data-accion="exportar"] {
+    background: linear-gradient(135deg, #7c3aed, #9333ea) !important;
+    border: 2px solid rgba(124, 58, 237, 0.3);
+}
+
+[data-accion="exportar"]:hover {
+    background: linear-gradient(135deg, #9333ea, #7c3aed) !important;
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+    border-color: rgba(124, 58, 237, 0.6);
+    transform: translateY(-3px);
+}
+
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Indicador de guardado */
+.indicador-guardado {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.indicador-icono {
+    font-size: 0.8rem;
+}
+
+.indicador-texto {
+    font-weight: 400;
+}
+
+/* Menú contextual */
+.menu-contextual {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    min-width: 180px;
+}
+
+.menu-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.menu-item:hover {
+    background: var(--color-light);
+    color: var(--color-primary);
+}
+
+.menu-item:not(:last-child) {
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Efectos de carga mejorados */
+.btn-accion.cargando {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.btn-accion.cargando::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Mejoras responsivas adicionales */
+@media (max-width: 768px) {
+    .notificacion {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+        max-width: none;
+    }
+    
+    .botones-accion {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .botones-accion .btn {
+        font-size: 0.7rem;
+        padding: 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .botones-accion {
+        grid-template-columns: 1fr;
+    }
+    
+    .notificacion {
+        font-size: 0.85rem;
+        padding: 0.75rem 1rem;
+    }
+    
+    .menu-contextual {
+        min-width: 150px;
+    }
+}
+
+/* Animaciones adicionales */
+.fade-in-up {
+    animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estados de validación mejorados */
+.campo-valido {
+    border-color: var(--color-success) !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+.campo-invalido {
+    border-color: var(--color-error) !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+/* Mejoras en la accesibilidad */
+.btn:focus,
+.notificacion:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* Tema oscuro para notificaciones en caso futuro */
+@media (prefers-color-scheme: dark) {
+    .notificacion {
+        backdrop-filter: blur(20px);
+    }
+}
+
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+footer a {
+    margin: 0.5rem 0;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-weight: bold;
+}
+
+footer a:hover {
+    color: var(--color-primary);
+}
